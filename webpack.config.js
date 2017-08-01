@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
 
+let prod_state = process.env.NODE_ENV==="production"
 
 module.exports = {
     entry: {
@@ -60,6 +61,9 @@ module.exports = {
     },
     plugins:[
         new CleanWebpackPlugin(['dist']),
+        new webpack.LoaderOptionsPlugin({
+            debug: !prod_state,
+        }),
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             filename: 'index.html',
