@@ -9,6 +9,7 @@ let prod_state = process.env.NODE_ENV==="production"
 module.exports = {
     entry: {
         bundle: './src/index.js',
+        gymnastics: './src/gymnastics.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -67,6 +68,12 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             filename: 'index.html',
+            chunks: ['bundle']
+        }),
+        new HtmlWebpackPlugin({
+            template: 'src/gymnastics.html',
+            filename: 'gymnastics.html',
+            chunks: ['gymnastics']
         }),
         new ExtractTextWebpackPlugin({
             filename: 'css/[name].[contenthash].css'

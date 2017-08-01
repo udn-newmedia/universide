@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/udn-newmedia/universide#readme",
   "dependencies": {
+    "bodymovin": "^4.10.0",
     "fullpage.js": "^2.9.4",
     "jquery": "^3.2.1",
     "lazysizes": "^4.0.0-rc3",

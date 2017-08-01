@@ -99,6 +99,14 @@ video{
     transition: all 0.7s ease;    
 }
 
+.yellow-bar-back{
+    background-color: #FFB81F;
+}
+
+#indicator-bar.yellow-bar-back{
+    background-color: #FFB81F;
+}
+
 .gray-back{
     background: rgba(0, 0, 0, 0.8);
 } 
@@ -112,13 +120,37 @@ video{
     background-color: #FFCE00;
 }
 
+#head.yellow-back-2{
+    background-color: #FFCE00;
+}
+
 .orange-back{
-    background-color: #EA7526;
+    background-color: #EA833D;
     height: 0;
 }
 
 .orange-back-2{
+    background-color: #EA833D;
+}
+
+.orange-back-3{
+    background-color: #E95513;
+}
+
+#indicator-bar.orange-back-3{
+    background-color: #E95513;
+}
+
+#head.orange-back-3{
     background-color: #EA7526;
+}
+
+#pannel.orange-back-3{
+    background-color: #EA7526;
+}
+
+.brown-back{
+    background-color: #9E760D;
 }
 
 .box-container{
@@ -156,9 +188,12 @@ video{
 
 #video-state-contain{
     position: fixed;
-    top: 20px;
-    left: 20px;
+    bottom: 50px;
+    left: 50%;
+    margin-left: -17.25px;
     z-index: 9999;
+    width: 35px;
+    height: 35px;
 }
 
 #video-state{
@@ -168,13 +203,14 @@ video{
     transition: opacity 0.7s ease;
 }
 
-#video-state-contain .fa-play{
+#video-state-contain .fa-repeat{
     position: absolute;
-    top: 8px;
-    left: 12px;
+    top: 7px;
+    left: 9px;
+    transform: rotate(80deg);
     font-size: 19px;
     opacity: 0;
-    color: #FFA31F;
+    color: #E95513;
     transition: opacity 0.7s ease;
 }
 
@@ -259,7 +295,6 @@ video{
 }
 
 #head{
-    background-color: #FFCE00;
     transition: opacity 0.7s ease;
     opacity: 0;
     z-index: 10000;
@@ -313,7 +348,6 @@ video{
 
 #indicator-bar{
     transition: width 0.7s ease;
-    background-color: #FFB81F;
 }
 
 #pannel{
@@ -398,8 +432,7 @@ video{
 #hbutton{
     top: 12px;
     right: 20px;
-    padding: 0 5px;
-    background-color: #9E760D;
+    padding: 0 5px;    
     opacity: 0.7;
 }
 #msg{
@@ -517,7 +550,8 @@ video{
     
     #cover-subtitle{
         font-size: 40px;
-        margin-top: -17px; 
+        margin-top: -6px; 
+        line-height: 1;
         transition: all 0.7s ease;
         opacity: 0;
         transform: translate(0, 50px);

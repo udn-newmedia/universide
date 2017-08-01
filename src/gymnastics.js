@@ -1,0 +1,431 @@
+import './style.css'
+import $ from 'jquery'
+import 'lazysizes'
+import 'fullpage.js'
+import imgBg from '../assets/gym-bg.png'
+
+import poster4 from '../assets/jump1.jpg'
+// import poster5 from '../assets/spin2.jpg'
+import poster6 from '../assets/jump3.jpg'
+import poster7 from '../assets/jump4.jpg'
+import poster8 from '../assets/jump5.jpg'
+import poster9 from '../assets/jump6.jpg'
+import poster10 from '../assets/jump7.jpg'
+
+import arrowIcon from '../assets/arrow.svg'
+import msgIcon from '../assets/msg.png'
+
+var progress = [null, null, null, null, null, null, null, null, null];
+var movie_progress = 0;
+
+function moviePlay(id){
+    $('#movie-' + id).get(0).play();
+    
+	if(progress[id - 1] == null){
+		progress[id - 1] = setInterval(function(){
+            var curTime = $('#movie-' + id).get(0).currentTime;
+            console.log(curTime)
+			var temp = curTime / $('#movie-' + id).get(0).duration * 100;
+			if(temp > 0.6){
+				$('.video-play[data-target="' + id + '"]').css('opacity', 0);
+			}
+			// if(Math.floor(curTime/5) > movie_progress){
+				// movie_progress = Math.floor(curTime/5)
+				// ga("send", {
+				// 	"hitType": "event",
+				// 	"eventCategory": "movie play",
+				// 	"eventAction": "play",
+				// 	"eventLabel": "[" + platform + "] [" + title + "] [movie " + id + " play " + (movie_progress*5) + "]"
+				// });
+			// }
+			
+			$('#progress-bar-' + id).css('width', temp + '%')
+		}, 600)
+	}
+}
+	
+function moviePause(id){
+	$('#movie-' + id).get(0).pause();
+	$('.video-play[data-target="' + id + '"]').css('opacity', 1);
+	if(progress[id-1]){
+		clearInterval(progress[id-1])
+		progress[id-1] = null;
+	}
+}
+
+function movieReplay(id){
+	$('#movie-' + id).get(0).currentTime = 0;
+	$('#movie-' + id).get(0).play();
+	$('.progress-bar').css('width', 0);
+	clearInterval(progress[id - 1])
+	progress[id - 1] = setInterval(function(){
+		var temp = $('#movie-' + id).get(0).currentTime / $('#movie-' + id).get(0).duration * 100
+		$('#progress-bar-' + id).css('width', temp + '%')
+	}, 600)
+}
+
+function movieVolume(id){
+	
+	if($('#movie-' + id).get(0).muted == true){
+		$('#movie-' + id).get(0).muted = false;
+		$('.volume[data-target="' + id + '"]').removeClass('fa-volume-off').addClass('fa-volume-up')
+		$('.volume-text[data-target="' + id + '"]').text('點按關聲音');
+	}
+	else{
+		$('#movie-' + id).get(0).muted = true;
+		$('.volume[data-target="' + id + '"]').removeClass('fa-volume-up').addClass('fa-volume-off')
+		$('.volume-text[data-target="' + id + '"]').text('點按開聲音');
+	}
+}
+
+$(document).ready(function(){
+
+    var videoTrack = null
+    var index_now
+
+    var bar_witdh = 0
+
+    var canvas = document.getElementById('back-1');
+    var ctx = canvas.getContext('2d');
+
+    var canvas2 = document.getElementById('video-state');
+    var video_state = canvas2.getContext('2d');
+
+    const w = $(window).width()
+    const h = $(window).height()
+    var timetemp
+
+    // $('#movie-4').attr('poster', poster4)
+    // $('#movie-5').attr('poster', poster5)
+    // $('#movie-6').attr('poster', poster6)
+    // $('#movie-7').attr('poster', poster7)
+    // $('#movie-8').attr('poster', poster8)
+    // $('#movie-9').attr('poster', poster9)
+    // $('#movie-10').attr('poster', poster10)
+
+    $('#arrowicon').attr('src', arrowIcon)
+    $('#msgicon').attr('data-src', msgIcon)
+
+    function drawVideoState(id){
+
+        var progress = $('#movie-' + id).get(0).currentTime / $('#movie-' + id).get(0).duration
+        console.log(progress)
+        video_state.clearRect(0, 0, 35, 35)
+
+        video_state.beginPath();
+        video_state.arc(17.5, 17.5, 16, 0, 2 * Math.PI);
+        video_state.strokeStyle = 'rgba(255, 255, 255, 1)'
+        video_state.stroke();
+
+        video_state.beginPath();
+        video_state.arc(17.5,17.5,16,-0.5 * Math.PI, (2 * progress - 0.5) * Math.PI);
+        video_state.strokeStyle = "#E95513";
+        video_state.stroke();
+        
+    }
+
+    $('video').on('ended', function(){
+        console.log(this)
+        console.log(index_now)
+        
+        video_state.clearRect(0, 0, 35, 35)
+
+        video_state.beginPath();
+        video_state.arc(17.5,17.5,16,-0.5 * Math.PI, (2 * 1 - 0.5) * Math.PI);
+        video_state.stroke();
+        if(videoTrack){
+            clearInterval(videoTrack)
+        }
+        if(index_now == 4){
+            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#section-4 .box-container-c').css('opacity', 1)
+        }
+        if(index_now == 5){
+            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+        }
+        if(index_now == 6){
+            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+        }
+        if(index_now == 7){
+            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+        }
+        if(index_now == 8){
+            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+        }
+        if(index_now == 9){
+            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+        }
+        if(index_now == 11){
+            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#section-11 .box-container-c').css('opacity', 1)
+        }
+        if(index_now == 14){
+            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+        }
+        if(index_now == 15){
+            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+        }
+    })
+
+    $('#video-state-contain .fa-repeat').click(function(){
+        $('#video-state-contain .fa-repeat').css('opacity', 0)
+        $('#movie-' + index_now).get(0).play()
+        videoTrack = setInterval(function(){
+            drawVideoState(index_now)
+        }, 100)
+        if(index_now == 4){
+            $('#section-4 .box-container-c').css('opacity', 0)
+        }
+        if(index_now == 11){
+            $('#section-11 .box-container-c').css('opacity', 0)
+        }
+    })
+
+    $('#back-1').prop('width' , 375)
+    $('#back-1').prop('height', 667)
+
+    $('#video-state').prop('width' , 35)
+    $('#video-state').prop('height', 35)
+
+    video_state.lineWidth = 3
+
+    var img = new Image()
+    img.addEventListener("load", function() {
+        ctx.drawImage(img, 0, 0, 375, 667, 0, 0, 375, 667);
+    }, false);
+    img.src = imgBg
+
+    $('video').css('width', w + 'px')
+
+    $('#nav-icon').click(function(){
+        console.log(123)
+        $(this).toggleClass('open')
+        $('#pannel').toggleClass('open')
+        $('#head').toggleClass('open')
+    })
+
+    $('#page-down').click(function(){
+        $.fn.fullpage.moveSectionDown()
+    })
+    
+    $('#comment-pannel .fa').click(function(){
+        $('#comment-pannel').toggleClass('open')
+        $('#msg').toggleClass('close')
+    })
+
+    $('#msg').click(function(){
+        $('#msg').toggleClass('close')
+        $('#comment-pannel').toggleClass('open')
+    })
+
+    setTimeout(function(){
+        $('#cover-title').css('opacity', 1)
+        $('#cover-title').css('transform', 'translate(0, 0)')
+        $('#cover-subtitle').css('opacity', 1)
+        $('#cover-subtitle').css('transform', 'translate(0, 0)')
+        $('#cover-v h1').css('opacity', 1)
+        $('#cover-v h1').css('transform', 'translate(0, 0)')
+        $('#cover-v hr').css('width', '100%')
+    }, 300)
+
+    $('#fullpage').fullpage({
+        navigation: false,    	
+        scrollOverflow : true,
+        afterLoad: function(anchorLink, index){
+            index_now = index
+            timetemp = setTimeout(function(){
+                $('#page-down .fa').css('animation-name', 'btnmove')
+            }, 3000)
+            bar_witdh = (index-1) / 17 * 100
+            $('#indicator-bar').css('width', bar_witdh+'%')
+            if(index == 1){
+                console.log(index)
+                $('#cover-title').css('opacity', 1)
+                $('#cover-title').css('transform', 'translate(0, 0)')
+                $('#cover-subtitle').css('opacity', 1)
+                $('#cover-subtitle').css('transform', 'translate(0, 0)')
+                $('#cover-v h1').css('opacity', 1)
+                $('#cover-v h1').css('transform', 'translate(0, 0)')
+                $('#cover-v hr').css('width', '100%')
+            }
+            if(index == 2){
+                $('#cover-title').css('opacity', 0)
+                $('#cover-title').css('transform', 'translate(0, 50px)')
+                $('#cover-subtitle').css('opacity', 0)
+                $('#cover-subtitle').css('transform', 'translate(0, 50px)')
+                $('#cover-v h1').css('opacity', 0)
+                $('#cover-v h1').css('transform', 'translate(0, 50px)')
+                $('#cover-v hr').css('width', '0')
+                $('#section-3 .box-container').css('transform', 'translate(0, 50px)')
+            }
+            if(index == 3){
+                $('#section-3 .box-container').css('opacity', 1)
+                $('#section-3 .box-container').css('transform', 'translate(0, 0)')
+            }
+            if(index == 4){
+                $('#section-3 .box-container').css('transform', 'translate(0, 50px)')
+                $('#movie-4').get(0).play()
+                $('#video-state').css('opacity', 0.7)
+                videoTrack = setInterval(function(){
+                    drawVideoState(4)
+                }, 100)
+            }
+            if(index == 5){
+                $('#movie-5').get(0).play()
+                $('#video-state').css('opacity', 0.7)
+                videoTrack = setInterval(function(){
+                    drawVideoState(5)
+                }, 100)
+            }
+            if(index == 6){
+                $('#movie-6').get(0).play()
+                $('#video-state').css('opacity', 0.7)
+                videoTrack = setInterval(function(){
+                    drawVideoState(6)
+                }, 100)
+            }
+            if(index == 7){
+                $('#movie-7').get(0).play()
+                $('#video-state').css('opacity', 0.7)
+                videoTrack = setInterval(function(){
+                    drawVideoState(7)
+                }, 100)
+            }
+            if(index == 8){
+                $('#movie-8').get(0).play()
+                $('#video-state').css('opacity', 0.7)
+                videoTrack = setInterval(function(){
+                    drawVideoState(8)
+                }, 100)
+            }
+            if(index == 9){
+                $('#movie-9').get(0).play()
+                $('#video-state').css('opacity', 0.7)
+                videoTrack = setInterval(function(){
+                    drawVideoState(9)
+                }, 100)
+                $('#section-10 .box-container').css('transform', 'translate(0, 50px)')
+            }
+            if(index == 10){
+                $('#section-10 .box-container').css('opacity', 1)
+                $('#section-10 .box-container').css('transform', 'translate(0, 0)')
+            }
+            if(index == 11){
+                $('#section-10 .box-container').css('transform', 'translate(0, 50px)')
+                $('#movie-11').get(0).play()
+                $('#video-state').css('opacity', 0.7)
+                videoTrack = setInterval(function(){
+                    drawVideoState(11)
+                }, 100)
+            }
+            if(index == 12){
+
+            }
+            if(index == 13){
+                
+            }
+            if(index == 14){
+                $('#movie-14').get(0).play()
+                $('#video-state').css('opacity', 0.7)
+                videoTrack = setInterval(function(){
+                    drawVideoState(14)
+                }, 100)
+            }
+            if(index == 15){
+                $('#movie-15').get(0).play()
+                $('#video-state').css('opacity', 0.7)
+                videoTrack = setInterval(function(){
+                    drawVideoState(15)
+                }, 100)
+            }
+            if(index == 17){
+                $('#page-down').css('opacity', 1)
+            }
+            if(index == 18){
+                $('#comment-pannel').toggleClass('open')
+            }
+        },
+        onLeave: function(index, nextIndex, direction){
+            $('#page-down .fa').css('animation-name', '')
+            clearTimeout(timetemp)
+            if(index == 2 && direction == 'down'){
+                ctx.clearRect(0, 0, 375, 667)
+                $('#section-3 .orange-back').css('height', '100vh')
+            }
+            if(index == 3 && direction == 'up'){
+                ctx.drawImage(img, 0, 0, 375, 667, 0, 0, 375, 667);
+            }
+            if(index == 3){
+                $('#section-3 .box-container').css('opacity', 0)
+            }
+            if(index == 4){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                $('#section-4 .box-container-c').css('opacity', 0)
+                clearInterval(videoTrack)
+            }
+            if(index == 5){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                clearInterval(videoTrack)
+            }
+            if(index == 6){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                clearInterval(videoTrack)
+            }
+            if(index == 7){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                clearInterval(videoTrack)
+            }
+            if(index == 8){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                clearInterval(videoTrack)
+            }
+            if(index == 9){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                clearInterval(videoTrack)
+                $('#section-10 .orange-back').css('height', '100vh')
+            }
+            if(index == 10){
+                 $('#section-10 .box-container').css('opacity', 0)
+            }
+            if(index == 11){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                $('#section-11 .box-container-c').css('opacity', 0)
+                clearInterval(videoTrack)
+            }
+            if(index == 12){
+            
+            }
+            if(index == 13){
+            
+            }
+            if(index == 14){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                clearInterval(videoTrack)
+            }
+            if(index == 15){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                clearInterval(videoTrack)
+            }
+            if(index == 17 && direction == 'down'){
+                $('#page-down').css('opacity', 0)
+            }
+            if(index == 18){
+                $('#msg').toggleClass('close')
+            }
+
+        }
+
+    })
+
+    $('.fp-section').css('transition', 'all .7s ease-in-out')
+
+})
