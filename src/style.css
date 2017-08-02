@@ -18,12 +18,20 @@ body{
 	background-size: 100% auto;
 }
 
+.mt-0{
+    margin-top: 0;
+}
+
 .yellow{
     color: #FFE400;
 }
 
 .orange{
     color: #E95513;
+}
+
+.brown{
+    color: #9E760D;
 }
 
 .white{
@@ -170,7 +178,8 @@ video{
     padding: 40px 40px;
     margin: 0 auto;
     opacity: 0;
-    transition: opacity 0.7s ease;
+    transform: translate(0, 50px);
+    transition: all 0.7s ease;
     box-shadow: 0px 3px 7px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -190,27 +199,27 @@ video{
     position: fixed;
     bottom: 50px;
     left: 50%;
-    margin-left: -17.25px;
+    margin-left: -25px;
     z-index: 9999;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
 }
 
 #video-state{
-    width: 35px;
-    height: 35px; 
+    width: 50px;
+    height: 50px; 
     opacity: 0;
     transition: opacity 0.7s ease;
 }
 
 #video-state-contain .fa-repeat{
     position: absolute;
-    top: 7px;
-    left: 9px;
+    top: 11px;
+    left: 13px;
     transform: rotate(80deg);
-    font-size: 19px;
+    font-size: 27px;
     opacity: 0;
-    color: #E95513;
+    color: #FFFFFF;
     transition: opacity 0.7s ease;
 }
 
@@ -446,6 +455,18 @@ video{
     opacity: 0;
 }
 
+.fa-comment{
+    font-size: 25px;
+}
+
+ #bm{
+    height: 120px;
+}
+
+#bm-2{
+    height: 120px;
+} 
+
 @keyframes btnmove{
 	0% {
 	    transform: translate3d(0, 0, 0);
@@ -487,16 +508,14 @@ video{
     #page-down{
         position: fixed;
         border-radius: 3px;
-        width: 30px;
-        height: 30px;
-        background-color: rgba(0, 0, 0, 0.2);
+        width: 40px;
+        height: 40px;
         z-index: 10000;
         display: flex;
         right: 20px;
-        bottom: 50px;
-        opacity: 1;
+        bottom: 53px;
+        opacity: 0.7;
         transition: opacity 0.7s ease;
-        background-color: rgba(153,153,153,0.4);
         padding: 1px;
         z-index: 9998;
     }

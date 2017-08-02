@@ -2,6 +2,7 @@ import './style.css'
 import $ from 'jquery'
 import 'lazysizes'
 import 'fullpage.js'
+import bodymovin from 'bodymovin'
 import imgBg from '../assets/gym-bg.png'
 
 import poster4 from '../assets/jump1.jpg'
@@ -13,7 +14,6 @@ import poster9 from '../assets/jump6.jpg'
 import poster10 from '../assets/jump7.jpg'
 
 import arrowIcon from '../assets/arrow.svg'
-import msgIcon from '../assets/msg.png'
 
 var progress = [null, null, null, null, null, null, null, null, null];
 var movie_progress = 0;
@@ -80,6 +80,22 @@ function movieVolume(id){
 
 $(document).ready(function(){
 
+    var animation = bodymovin.loadAnimation({
+        container: document.getElementById('bm'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '../assets/data.json'
+    })
+
+    var animation2 = bodymovin.loadAnimation({
+        container: document.getElementById('bm-2'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '../assets/data2.json'
+    })
+
     var videoTrack = null
     var index_now
 
@@ -104,22 +120,21 @@ $(document).ready(function(){
     // $('#movie-10').attr('poster', poster10)
 
     $('#arrowicon').attr('src', arrowIcon)
-    $('#msgicon').attr('data-src', msgIcon)
 
     function drawVideoState(id){
 
         var progress = $('#movie-' + id).get(0).currentTime / $('#movie-' + id).get(0).duration
         console.log(progress)
-        video_state.clearRect(0, 0, 35, 35)
+        video_state.clearRect(0, 0, 50, 50)
 
         video_state.beginPath();
-        video_state.arc(17.5, 17.5, 16, 0, 2 * Math.PI);
-        video_state.strokeStyle = 'rgba(255, 255, 255, 1)'
+        video_state.arc(25, 25, 21.5, 0, 2 * Math.PI);
+        video_state.strokeStyle = '#A5A3A3';
         video_state.stroke();
 
         video_state.beginPath();
-        video_state.arc(17.5,17.5,16,-0.5 * Math.PI, (2 * progress - 0.5) * Math.PI);
-        video_state.strokeStyle = "#E95513";
+        video_state.arc(25,25,21.5,-0.5 * Math.PI, (2 * progress - 0.5) * Math.PI);
+        video_state.strokeStyle = "#FFFFFF";
         video_state.stroke();
         
     }
@@ -128,42 +143,47 @@ $(document).ready(function(){
         console.log(this)
         console.log(index_now)
         
-        video_state.clearRect(0, 0, 35, 35)
+        video_state.clearRect(0, 0, 50, 50)
 
         video_state.beginPath();
-        video_state.arc(17.5,17.5,16,-0.5 * Math.PI, (2 * 1 - 0.5) * Math.PI);
+        video_state.arc(25,25,21.5,-0.5 * Math.PI, (2 * 1 - 0.5) * Math.PI);
         video_state.stroke();
         if(videoTrack){
             clearInterval(videoTrack)
         }
         if(index_now == 4){
-            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
             $('#section-4 .box-container-c').css('opacity', 1)
+            $('#section-4 .box-container-c').css('transform', 'translate(0, 0)')
         }
         if(index_now == 5){
-            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
         }
         if(index_now == 6){
-            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
         }
         if(index_now == 7){
-            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
         }
         if(index_now == 8){
-            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
         }
         if(index_now == 9){
-            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
         }
         if(index_now == 11){
-            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
             $('#section-11 .box-container-c').css('opacity', 1)
+            $('#section-11 .box-container-c').css('transform', 'translate(0, 0)')
         }
         if(index_now == 14){
-            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
         }
         if(index_now == 15){
-            $('#video-state-contain .fa-repeat').css('opacity', 0.7)
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
+        }
+        if(index_now == 16){
+            $('#video-state-contain .fa-repeat').css('opacity', 1)
         }
     })
 
@@ -175,19 +195,21 @@ $(document).ready(function(){
         }, 100)
         if(index_now == 4){
             $('#section-4 .box-container-c').css('opacity', 0)
+            $('#section-4 .box-container-c').css('transform', 'translate(0, 50px)')
         }
         if(index_now == 11){
             $('#section-11 .box-container-c').css('opacity', 0)
+            $('#section-11 .box-container-c').css('transform', 'translate(0, 50px)')
         }
     })
 
     $('#back-1').prop('width' , 375)
     $('#back-1').prop('height', 667)
 
-    $('#video-state').prop('width' , 35)
-    $('#video-state').prop('height', 35)
+    $('#video-state').prop('width' , 50)
+    $('#video-state').prop('height', 50)
 
-    video_state.lineWidth = 3
+    video_state.lineWidth = 5
 
     var img = new Image()
     img.addEventListener("load", function() {
@@ -265,42 +287,42 @@ $(document).ready(function(){
             if(index == 4){
                 $('#section-3 .box-container').css('transform', 'translate(0, 50px)')
                 $('#movie-4').get(0).play()
-                $('#video-state').css('opacity', 0.7)
+                $('#video-state').css('opacity', 1)
                 videoTrack = setInterval(function(){
                     drawVideoState(4)
                 }, 100)
             }
             if(index == 5){
                 $('#movie-5').get(0).play()
-                $('#video-state').css('opacity', 0.7)
+                $('#video-state').css('opacity', 1)
                 videoTrack = setInterval(function(){
                     drawVideoState(5)
                 }, 100)
             }
             if(index == 6){
                 $('#movie-6').get(0).play()
-                $('#video-state').css('opacity', 0.7)
+                $('#video-state').css('opacity', 1)
                 videoTrack = setInterval(function(){
                     drawVideoState(6)
                 }, 100)
             }
             if(index == 7){
                 $('#movie-7').get(0).play()
-                $('#video-state').css('opacity', 0.7)
+                $('#video-state').css('opacity', 1)
                 videoTrack = setInterval(function(){
                     drawVideoState(7)
                 }, 100)
             }
             if(index == 8){
                 $('#movie-8').get(0).play()
-                $('#video-state').css('opacity', 0.7)
+                $('#video-state').css('opacity', 1)
                 videoTrack = setInterval(function(){
                     drawVideoState(8)
                 }, 100)
             }
             if(index == 9){
                 $('#movie-9').get(0).play()
-                $('#video-state').css('opacity', 0.7)
+                $('#video-state').css('opacity', 1)
                 videoTrack = setInterval(function(){
                     drawVideoState(9)
                 }, 100)
@@ -313,7 +335,7 @@ $(document).ready(function(){
             if(index == 11){
                 $('#section-10 .box-container').css('transform', 'translate(0, 50px)')
                 $('#movie-11').get(0).play()
-                $('#video-state').css('opacity', 0.7)
+                $('#video-state').css('opacity', 1)
                 videoTrack = setInterval(function(){
                     drawVideoState(11)
                 }, 100)
@@ -326,22 +348,29 @@ $(document).ready(function(){
             }
             if(index == 14){
                 $('#movie-14').get(0).play()
-                $('#video-state').css('opacity', 0.7)
+                $('#video-state').css('opacity', 1)
                 videoTrack = setInterval(function(){
                     drawVideoState(14)
                 }, 100)
             }
             if(index == 15){
                 $('#movie-15').get(0).play()
-                $('#video-state').css('opacity', 0.7)
+                $('#video-state').css('opacity', 1)
                 videoTrack = setInterval(function(){
                     drawVideoState(15)
                 }, 100)
             }
-            if(index == 17){
-                $('#page-down').css('opacity', 1)
+            if(index == 16){
+                $('#movie-16').get(0).play()
+                $('#video-state').css('opacity', 1)
+                videoTrack = setInterval(function(){
+                    drawVideoState(16)
+                }, 100)
             }
             if(index == 18){
+                $('#page-down').css('opacity', 1)
+            }
+            if(index == 19){
                 $('#comment-pannel').toggleClass('open')
             }
         },
@@ -362,6 +391,7 @@ $(document).ready(function(){
                 $('#video-state').css('opacity', 0)
                 $('#video-state-contain .fa-repeat').css('opacity', 0)
                 $('#section-4 .box-container-c').css('opacity', 0)
+                $('#section-4 .box-container-c').css('transform', 'translate(0, 50px)')
                 clearInterval(videoTrack)
             }
             if(index == 5){
@@ -397,6 +427,7 @@ $(document).ready(function(){
                 $('#video-state').css('opacity', 0)
                 $('#video-state-contain .fa-repeat').css('opacity', 0)
                 $('#section-11 .box-container-c').css('opacity', 0)
+                $('#section-11 .box-container-c').css('transform', 'translate(0, 50px)')
                 clearInterval(videoTrack)
             }
             if(index == 12){
@@ -415,10 +446,15 @@ $(document).ready(function(){
                 $('#video-state-contain .fa-repeat').css('opacity', 0)
                 clearInterval(videoTrack)
             }
-            if(index == 17 && direction == 'down'){
+            if(index == 16){
+                $('#video-state').css('opacity', 0)
+                $('#video-state-contain .fa-repeat').css('opacity', 0)
+                clearInterval(videoTrack)
+            }
+            if(index == 18 && direction == 'down'){
                 $('#page-down').css('opacity', 0)
             }
-            if(index == 18){
+            if(index == 19){
                 $('#msg').toggleClass('close')
             }
 

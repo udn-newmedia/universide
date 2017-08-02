@@ -14,7 +14,6 @@ import poster13 from '../assets/backspin.jpg'
 import poster15 from '../assets/fist.jpg'
 
 import arrowIcon from '../assets/arrow.svg'
-import msgIcon from '../assets/msg.png'
 
 var progress = [null, null, null, null, null, null, null, null, null];
 var movie_progress = 0;
@@ -90,7 +89,6 @@ $(document).ready(function(){
     $('#movie-15').attr('poster', poster15)
 
     $('#arrowicon').attr('src', arrowIcon)
-    $('#msgicon').attr('data-src', msgIcon)
 
     var bar_witdh = 0
 
