@@ -15,7 +15,7 @@
 body{
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: 100% auto;
+    background-size: 100% auto;
 }
 
 .mt-0{
@@ -45,7 +45,7 @@ body{
 	top: 0;
 	z-index: -2;
 	transition: filter 1s ease;
-	background: #000000;
+	background: transparent;
 }
  
   .fullpage-wrapper {
@@ -503,37 +503,70 @@ video{
     background-color: #FFE400;
 }
 
+#page-down{
+    position: fixed;
+    border-radius: 3px;
+    width: 40px;
+    height: 40px;
+    z-index: 10000;
+    display: flex;
+    right: 20px;
+    bottom: 53px;
+    opacity: 0.7;
+    transition: opacity 0.7s ease;
+    padding: 1px;
+    z-index: 9998;
+}
+
+#page-down .fa{
+    margin: 0 auto;
+    line-height: 30px;
+    font-size: 30px;
+    color: #FFFFFF;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+}
+
+#cover-v hr{
+    height: 2px;
+    margin: 0 auto;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.6);
+    transition: width 0.7s ease;
+    transition-delay: 0.3s;
+}
+
+#cover-v h1{
+    padding: 0;
+    transition: all 0.7s ease;
+    opacity: 0;
+    transform: translate(0, 50px);
+}
+
+#cover-subtitle{
+    font-size: 40px;
+    margin-top: -6px; 
+    line-height: 1;
+    transition: all 0.7s ease;
+    opacity: 0;
+    transform: translate(0, 50px);
+}
+
 @media screen and (max-width: 768px){
+    body{
+        background-image: url('../assets/bg.jpg');
+    }
+    .box-container img{
+        margin-top: 16px;
+    }
     
-    #page-down{
-        position: fixed;
-        border-radius: 3px;
-        width: 40px;
-        height: 40px;
-        z-index: 10000;
-        display: flex;
-        right: 20px;
-        bottom: 53px;
-        opacity: 0.7;
-        transition: opacity 0.7s ease;
-        padding: 1px;
-        z-index: 9998;
-    }
-    #page-down .fa{
-        margin: 0 auto;
-        line-height: 30px;
-        font-size: 30px;
-        color: #FFFFFF;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-        animation-duration: 2s;
-    }
     h2{
         margin-top: 32px;
         margin-bottom: 16px;
     }
     p{
-        line-height: 30px;
+        line-height: 27px;
     }
     .f-video-contain{
         margin-bottom: 16px;
@@ -549,31 +582,6 @@ video{
     }
     #cover-box-2{
         flex-grow: 1;
-    }
-
-    #cover-v hr{
-        height: 2px;
-        margin: 0 auto;
-        width: 1px;
-        background: rgba(255, 255, 255, 0.6);
-        transition: width 0.7s ease;
-        transition-delay: 0.3s;
-    }
-
-	#cover-v h1{
-        padding: 0;
-        transition: all 0.7s ease;
-        opacity: 0;
-        transform: translate(0, 50px);
-    }
-    
-    #cover-subtitle{
-        font-size: 40px;
-        margin-top: -6px; 
-        line-height: 1;
-        transition: all 0.7s ease;
-        opacity: 0;
-        transform: translate(0, 50px);
     }
 
     .share-block{
@@ -597,4 +605,47 @@ video{
     p>br{
         line-height: 24px;
     }
+    .img-say{
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 961px) and (max-width: 1280px){
+
+    body{
+        background-image: url('../assets/bg-web.png');
+    }
+    #cover-box{
+	    flex-grow: 3; 
+    }
+    #cover-box-2{
+        flex-grow: 1;
+    }
+
+    #cover-v h1{
+        font-size: 70px;
+        display: inline-block;
+        letter-spacing: -1.4;
+    }
+
+    #cover-subtitle{
+        font-size: 70px;
+        display: inline-block;
+        letter-spacing: -1.4;
+    }
+
+}
+
+@media screen and (min-width: 1281px){
+
+    body{
+        background-image: url('../assets/bg-web.png');
+    }
+    #cover-box{
+	    flex-grow: 3; 
+    }
+    #cover-box-2{
+        flex-grow: 1;
+    }
+
 }

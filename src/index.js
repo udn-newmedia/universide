@@ -3,8 +3,6 @@ import $ from 'jquery'
 import 'fullpage.js'
 import 'lazysizes'
 
-import imgBg from '../assets/bg.jpg'
-
 import poster4 from '../assets/spin1.jpg'
 import poster5 from '../assets/spin2.jpg'
 import poster8 from '../assets/back.jpg'
@@ -14,6 +12,9 @@ import poster13 from '../assets/backspin.jpg'
 import poster15 from '../assets/fist.jpg'
 
 import arrowIcon from '../assets/arrow.svg'
+
+import imgBg from '../assets/bg.jpg'
+import imgBgWeb from '../assets/bg-web.png'
 
 var progress = [null, null, null, null, null, null, null, null, null];
 var movie_progress = 0;
@@ -80,6 +81,13 @@ function movieVolume(id){
 
 $(document).ready(function(){
 
+    const w = $(window).width()
+    const h = $(window).height()
+
+    var timetemp
+
+    var bar_witdh = 0
+
     $('#movie-4').attr('poster', poster4)
     $('#movie-5').attr('poster', poster5)
     $('#movie-8').attr('poster', poster8)
@@ -90,25 +98,6 @@ $(document).ready(function(){
 
     $('#arrowicon').attr('src', arrowIcon)
 
-    var bar_witdh = 0
-
-    var canvas = document.getElementById('back-1');
-    var ctx = canvas.getContext('2d');
-
-    $('#back-1').prop('width' ,720)
-    $('#back-1').prop('height', 1280)
-    
-    var img = new Image()
-    img.addEventListener("load", function() {
-        ctx.drawImage(img, 0, 0, 720, 1280, 0, 0, 720, 1280);
-    }, false);
-    img.src = imgBg
-
-    const w = $(window).width()
-    const h = $(window).height()
-    var timetemp
-
-    // $('.f-video-contain').css('height', 600*w/h + 'px')
     $('video').css('width', w + 'px')
 
     $('#nav-icon').click(function(){
@@ -173,6 +162,7 @@ $(document).ready(function(){
                 $('#page-down').css('opacity', 1)
             }
             if(index == 3){
+                $('#fixed-back').css('background-color', '#000000')
                 $('#section-3 .box-container').css('opacity', 1)
                 $('#section-3 .box-container').css('transform', 'translate(0, 0)')
                 $('#section-4 .popup').css('transform', 'translate(0, 100px)')
@@ -253,11 +243,10 @@ $(document).ready(function(){
                 // $('#page-down').css('opacity', 0)
             }
             if(index == 2 && direction == 'down'){
-                ctx.clearRect(0, 0, 720, 1280)
                 $('#section-3 .yellow-back').css('height', '100vh')
             }
             if(index == 3 && direction == 'up'){
-                ctx.drawImage(img, 0, 0, 720, 1280, 0, 0, 720, 1280);
+                $('#fixed-back').css('background-color', 'transparent')
                 $('#section-3 .yellow-back').css('height', 0)
             }
             if(index == 3){
